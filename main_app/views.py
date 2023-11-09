@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from .models import Schedule
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -18,6 +20,14 @@ def home(request):
 
 def about(request):
   return render(request, 'about.html')
+
+
+# def schedule_index(request):
+#   schedule = Schedule.objects.all()
+#   return render(request, 'schedule.html', {'schedule': schedule})
+
+class ScheduleList(ListView):
+  model = Schedule
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     template_name = 'change_password.html'

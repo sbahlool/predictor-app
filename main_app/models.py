@@ -34,9 +34,12 @@ class Schedule(models.Model):
     date = models.DateField()
     time = models.TimeField()
     hometeam = models.CharField(max_length=20)
-    hometeamscore = models.IntegerField()
+    hometeamscore = models.IntegerField(blank=True, null=True)
     awayteam = models.CharField(max_length=20)
-    awayteamscore = models.IntegerField()
+    awayteamscore = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return (f'{self.hometeam} vs {self.awayteam} on {self.date} at {self.time}')
 
 class Predictions(models.Model):
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)

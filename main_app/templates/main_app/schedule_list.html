@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Schedule </h1>
+{% for schedule in schedule_list %}
+<div class="card">
+
+    <div class="card-content">
+
+      <div class="flex-container">
+
+      <div>
+      <h4>{{ schedule.date }}</h4>
+      <h4>{{ schedule.time }}</h4>
+      <span class="card-title">{{ schedule.hometeam }}</span>
+      <div> {{ schedule.hometeamscore }} </div>
+      <div> {{ schedule.awayteamscore }} </div>
+      <span class="card-title"> {{ schedule.awayteam }}</span>
+      
+      </div>
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endblock %}
