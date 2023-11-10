@@ -37,6 +37,7 @@ class Schedule(models.Model):
     hometeamscore = models.IntegerField(blank=True, null=True)
     awayteam = models.CharField(max_length=20)
     awayteamscore = models.IntegerField(blank=True, null=True)
+    
 
     def __str__(self):
         return (f'{self.hometeam} vs {self.awayteam} on {self.date} at {self.time}')
@@ -46,3 +47,7 @@ class Predictions(models.Model):
     predhometeamscore = models.IntegerField()
     predawayteamscore = models.IntegerField()
     timestamp = models.TimeField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
+
+    def __str__(self):
+        return (f'{self.user} predicted {self.predhometeamscore} - {self.predawayteamscore} for {self.schedule.hometeam} vs {self.schedule.awayteam} at {self.timestamp}')
