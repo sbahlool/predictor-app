@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Thread </h1>
+<form method="post" action="{% url 'add_comment' user.id %}">
+  {% csrf_token %}
+  {{ comment_form.as_p}}
+  <textarea></textarea>
+  <input type="submit" class="btn" value="Add Comment">
+</form>
+
+    {% for comment in comment_list %}
+<div>
+  <hr>
+  <h5>{{ comment.user.username}}</h3>
+  <p>{{ comment.comment }}</p>
+  <h8>{{ comment.timestamp }}</h7>
+  <h8>{{ comment.date }}</h7>
+  <hr>
+</div>
+    {% endfor %}
+
+  {% endblock %}

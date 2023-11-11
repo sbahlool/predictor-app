@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+import datetime
 # Create your models here.
 
 TEAMS = (
@@ -31,6 +32,7 @@ class Profile(models.Model):
         img.save(self.avatar.path)
 
 class Schedule(models.Model):
+    gameweek = models.IntegerField(default=1)
     date = models.DateField()
     time = models.TimeField()
     hometeam = models.CharField(max_length=20)
@@ -51,3 +53,12 @@ class Predictions(models.Model):
 
     def __str__(self):
         return (f'{self.user} predicted {self.predhometeamscore} - {self.predawayteamscore} for {self.schedule.hometeam} vs {self.schedule.awayteam} at {self.timestamp}')
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
+    comment = models.TextField(max_length=250)
+    date = models.DateField(default=datetime.date.today)
+    timestamp = models.TimeField()
+
+    def __str__(self):
+        return (f'{self.user} said {self.comment} at {self.timestamp}')

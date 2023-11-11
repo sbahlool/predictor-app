@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect
-from .models import Schedule
+from .models import Schedule, Predictions, Comment
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth import login
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views import View
+from django import forms
 
 from .forms import UpdateUserForm, UpdateProfileForm, RegisterForm
 
@@ -21,6 +22,9 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+def thread(request):
+  return render(request, 'thread.html')
+
 
 # def schedule_index(request):
 #   schedule = Schedule.objects.all()
@@ -28,6 +32,21 @@ def about(request):
 
 class ScheduleList(ListView):
   model = Schedule
+
+class PredictionsList(ListView):
+  model = Predictions
+
+class CommentList(ListView):
+  model = Comment
+
+class CommentCreate(CreateView):
+  model = Comment
+  fields = ['comment']
+  
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     template_name = 'change_password.html'

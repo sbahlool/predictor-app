@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Profile
+from .models import Profile, Schedule
 
 class RegisterForm(UserCreationForm):
     first_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'First Name', 'class': 'form-control',}))
@@ -15,7 +15,20 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
 
+class GameweekView(forms.Form):
+    game_week = forms.ChoiceField(choices=[(1, 'Gameweek 1'), (2, 'Gameweek 2'), (3, 'Gameweek 3')])
 
+    def my_view(request):
+      form = GameweekView(request.POST)
+
+      if form.is_valid():
+          game_week = form.cleaned_data['gameweek']
+
+          data = Schedule.objects.filter(gameweek=game_week)
+
+          context = {'data': data}
+
+          return render(request, 'schedule_list.html', context)
 
 class UpdateUserForm(forms.ModelForm):
     username = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -33,3 +46,4 @@ class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['avatar', 'team']
+
