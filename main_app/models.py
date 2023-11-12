@@ -62,3 +62,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return (f'{self.user} said {self.comment} at {self.timestamp}')
+
+    def get_absolute_url(self):
+      return reverse('comment', kwargs={'comment_id': self.id})

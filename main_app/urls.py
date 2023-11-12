@@ -12,6 +12,7 @@ urlpatterns = [
   path('accounts/signup/', RegisterView.as_view(), name='signup'),
   path('password_change/', ChangePasswordView.as_view(), name='password_change'),
 
-  path('thread/', views.CommentList.as_view(), name='thread'),
-  path('thread/<int:user_id>/add_comment/', views.CommentCreate.as_view, name='add_comment'),
+  path('comment/', views.CommentList.as_view(), name='comment'),
+  # path('thread/<int:comment_id>/add_comment', views.add_comment, name='add_comment'),
+  path('comment/create', views.CommentCreate.as_view(), name='comment_create')
 ]

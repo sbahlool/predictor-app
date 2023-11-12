@@ -5,14 +5,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views import View
 from django import forms
+import datetime
 
-from .forms import UpdateUserForm, UpdateProfileForm, RegisterForm
+from .forms import UpdateUserForm, UpdateProfileForm, RegisterForm, CommentForm
 
 
 # Create your views here.
@@ -22,8 +23,8 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
-def thread(request):
-  return render(request, 'thread.html')
+# def thread(request):
+#   return render(request, 'thread.html')
 
 
 # def schedule_index(request):
@@ -39,13 +40,34 @@ class PredictionsList(ListView):
 class CommentList(ListView):
   model = Comment
 
-class CommentCreate(CreateView):
+class CommentCreate(LoginRequiredMixin, CreateView):
   model = Comment
   fields = ['comment']
-  
+  success_url = '/comment/'
+
+
   def form_valid(self, form):
     form.instance.user = self.request.user
+    form.instance.timestamp = datetime.datetime.now()
     return super().form_valid(form)
+
+class CommentUpdate(UpdateView):
+  model = Comment
+  fields = ['comment']
+
+class CommentDelete(DeleteView):
+  model = Comment
+  success_url = '/thread/'
+
+# def add_comment(request, comment_id):
+#   form = CommentForm(request.POST)
+#   comment_form = CommentForm()
+#   if form.is_valid():
+#     new_comment = form.save(commit = False)
+#     new_comment.comment_id = comment_id
+#     new_comment.save()
+#   return redirect('thread', comment_id = comment_id)
+
 
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
