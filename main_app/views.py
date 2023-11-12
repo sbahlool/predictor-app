@@ -50,14 +50,16 @@ class CommentCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     form.instance.timestamp = datetime.datetime.now()
     return super().form_valid(form)
+  
 
 class CommentUpdate(UpdateView):
   model = Comment
   fields = ['comment']
+  success_url = '/comment/'
 
 class CommentDelete(DeleteView):
   model = Comment
-  success_url = '/thread/'
+  success_url = '/comment/'
 
 # def add_comment(request, comment_id):
 #   form = CommentForm(request.POST)

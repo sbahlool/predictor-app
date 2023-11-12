@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date
 from PIL import Image
 import datetime
 # Create your models here.
@@ -40,7 +41,6 @@ class Schedule(models.Model):
     awayteam = models.CharField(max_length=20)
     awayteamscore = models.IntegerField(blank=True, null=True)
     
-
     def __str__(self):
         return (f'{self.hometeam} vs {self.awayteam} on {self.date} at {self.time}')
 
@@ -60,8 +60,14 @@ class Comment(models.Model):
     date = models.DateField(default=datetime.date.today)
     timestamp = models.TimeField()
 
+    class Meta:
+    # ordering = ['date'] # Date ascending
+      ordering = ['-date', 'timestamp'] # Date descending
+
     def __str__(self):
         return (f'{self.user} said {self.comment} at {self.timestamp}')
 
     def get_absolute_url(self):
       return reverse('comment', kwargs={'comment_id': self.id})
+
+    

@@ -12,6 +12,12 @@
   <p>{{ comment.comment }}</p>
   <h8>{{ comment.timestamp }}</h7>
   <h8>{{ comment.date }}</h7>
+    {% if comment.user == request.user %}
+    <div class="card-action">
+      <a href="{% url 'comment_update' comment.id %}">Edit</a>
+      <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+    </div>
+    {% endif %}
   <hr>
 </div>
     {% endfor %}
