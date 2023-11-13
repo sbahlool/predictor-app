@@ -13,8 +13,10 @@ urlpatterns = [
   path('password_change/', ChangePasswordView.as_view(), name='password_change'),
 
   path('comment/', views.CommentList.as_view(), name='comment'),
-  # path('thread/<int:comment_id>/add_comment', views.add_comment, name='add_comment'),
   path('comment/create', views.CommentCreate.as_view(), name='comment_create'),
   path('comment/<int:pk>/update/', views.CommentUpdate.as_view(), name='comment_update'),
   path('comment/<int:pk>/delete/', views.CommentDelete.as_view(), name='comment_delete'),
+
+  path('schedule/<int:pk>', views.ScheduleDetail.as_view(), name='schedule_detail'),
+  path('schedule/<int:pk>/prediction/', views.SchedulePrediction.as_view(), name='prediction_create')
 ]
