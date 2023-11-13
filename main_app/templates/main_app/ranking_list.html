@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Ranking{% endblock title %}
+{% block content %}
+
+{% for ranking in ranking_list %}
+
+<div class="card">
+    <div class="card-content">
+      <div class="flex-container">
+      <div>
+        <table>
+          <th>Name</th>
+          <th>Points</th>
+          <tr>
+            <td>{{ ranking.user.username }}</td>
+            <td>{{ ranking.totalpoints }}</td>
+          </tr>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Schedule, Predictions, Comment
+from .models import Schedule, Predictions, Comment, Ranking
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -49,7 +49,7 @@ class PredictionsCreate(CreateView):
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
-    
+
 
 ######################
 # class PredictionsCreate(InlineFormSetFactory):
@@ -98,6 +98,9 @@ class CommentDelete(DeleteView):
 #     new_comment.comment_id = comment_id
 #     new_comment.save()
 #   return redirect('thread', comment_id = comment_id)
+
+class RankingList(ListView):
+  model = Ranking
 
 
 

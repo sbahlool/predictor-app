@@ -85,3 +85,6 @@ class Ranking(models.Model):
 
     def __str__(self):
         return (f'{self.user} total points: {self.totalpoints}')
+    
+    class Meta:
+      ordering = ['-totalpoints'] # Date descending
