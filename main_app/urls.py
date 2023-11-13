@@ -18,5 +18,8 @@ urlpatterns = [
   path('comment/<int:pk>/delete/', views.CommentDelete.as_view(), name='comment_delete'),
 
   path('schedule/<int:pk>', views.ScheduleDetail.as_view(), name='schedule_detail'),
-  path('schedule/<int:pk>/prediction/', views.SchedulePrediction.as_view(), name='prediction_create')
+  path('prediction/<int:pk>', views.PredictionsList.as_view(), name='prediction_detail'),
+
+  path('schedule/<int:pk>/prediction/', views.PredictionsCreate.as_view(), name='prediction_create')
+  # path('schedule/<int:pk>/prediction/', views.SchedulePrediction.as_view(), name='prediction_create')
 ]

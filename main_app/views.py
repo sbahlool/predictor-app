@@ -41,28 +41,28 @@ class ScheduleDetail(DetailView):
 class PredictionsList(ListView):
   model = Predictions
 
-# class PredictionsCreate(CreateView):
-#   model = Predictions
-#   fields = ['schedule']
-#   success_url = '/schedule/'
-
-#   def form_valid(self, form):
-#     form.instance.user = self.request.user
-#     return super().form_valid(form)
-class PredictionsCreate(InlineFormSetFactory):
+class PredictionsCreate(CreateView):
   model = Predictions
-  fields = ['predhometeamscore','predawayteamscore']
-
-class SchedulePrediction(CreateWithInlinesView):
-  model = Schedule
-  inlines = [PredictionsCreate]
-  fields = ['hometeam','awayteam']
-  template_name = 'prediction_schedule.html'
+  fields = ['schedule']
+  success_url = '/schedule/'
 
   def form_valid(self, form):
-      form.instance.user = self.request.user
-      form.instance.hometeam = self.request.hometeam
-      return super().form_valid(form)
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+    
+
+######################
+# class PredictionsCreate(InlineFormSetFactory):
+#   model = Predictions
+#   fields = ['predhometeamscore','predawayteamscore']
+
+# class SchedulePrediction(CreateWithInlinesView):
+#   model = Schedule
+#   inlines = [PredictionsCreate]
+#   fields = ['hometeam','awayteam']
+#   template_name = 'prediction_schedule.html'
+#######################
+
   
 
 

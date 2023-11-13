@@ -70,4 +70,18 @@ class Comment(models.Model):
     def get_absolute_url(self):
       return reverse('comment', kwargs={'comment_id': self.id})
 
-    
+class Score(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
+    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
+    prediction = models.ForeignKey(Predictions, on_delete=models.CASCADE)
+    points = models.IntegerField()
+
+    def __str__(self):
+        return (f'{self.user} scored {self.points} for {self.schedule.hometeam} vs {self.schedule.awayteam}')
+
+class Ranking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
+    totalpoints = models.IntegerField()
+
+    def __str__(self):
+        return (f'{self.user} total points: {self.totalpoints}')

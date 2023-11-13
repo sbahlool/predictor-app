@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Schedule{% endblock title %}
+{% block content %}
+
+{% for prediction in predictions_list %}
+
+<div class="card">
+    <div class="card-content">
+      <div class="flex-container">
+      <div>
+        <h1>{{ prediction.user.username }}</h1>
+        <span class="card-title">{{ prediction.schedule.hometeam }}</span>
+          <div> {{ prediction.predhometeamscore }} </div>
+          <div> {{ prediction.predawayteamscore }} </div>
+        <span class="card-title"> {{ prediction.schedule.awayteam }}</span>
+          <div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+{% endfor %}
+{% endblock %}
