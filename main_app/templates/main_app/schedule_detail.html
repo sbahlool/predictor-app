@@ -3,22 +3,8 @@
 {% block content %}
 <h1> Schedule </h1>
 
-<!-- <form action="" method="post">
-
-  <select name="gameweek">
-    {% for gameweek in gameweek_list %}
-      <option value="{{ gameweek.id }}">Gameweek {{ gameweek.id }}</option>
-    {% endfor %}
-  </select>
-
-  <input type="submit" value="Submit">
-
-</form> -->
-
-{% for schedule in schedule_list %}
 
 <div class="card">
-  <a href="{% url 'schedule_detail' schedule.id %}">
     <div class="card-content">
       <div class="flex-container">
       <div>
@@ -29,13 +15,11 @@
           <div> {{ schedule.awayteamscore }} </div>
         <span class="card-title"> {{ schedule.awayteam }}</span>
           <div>
-        
+          <a href="{% url 'prediction_create' schedule.id %}">Predict</a>
         </div>
       </div>
     </div>
-  </a>
   </div>
   
 </div>
-{% endfor %}
 {% endblock %}
