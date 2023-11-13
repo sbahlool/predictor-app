@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Profile, Schedule, Comment
+from .models import Profile, Schedule, Comment, Predictions
 
 class RegisterForm(UserCreationForm):
     first_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': 'First Name', 'class': 'form-control',}))
@@ -53,4 +53,9 @@ class CommentForm(ModelForm):
   class Meta:
     model = Comment
     fields = ['comment']
+
+class PredictionForm(ModelForm):
+  class Meta:
+    model = Predictions
+    fields = ['predhometeamscore', 'predawayteamscore']
 
