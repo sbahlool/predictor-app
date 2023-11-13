@@ -24,9 +24,6 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
-# def thread(request):
-#   return render(request, 'thread.html')
-
 
 # def schedule_index(request):
 #   schedule = Schedule.objects.all()
@@ -37,6 +34,12 @@ class ScheduleList(ListView):
 
 class ScheduleDetail(DetailView):
   model = Schedule
+
+class ScheduleCreate(CreateView):
+  model = Schedule
+  fields = ['gameweek', 'date', 'time', 'hometeam', 'awayteam']
+  success_url = '/schedule/'
+  
 
 class PredictionsList(ListView):
   model = Predictions
@@ -89,15 +92,6 @@ class CommentUpdate(UpdateView):
 class CommentDelete(DeleteView):
   model = Comment
   success_url = '/comment/'
-
-# def add_comment(request, comment_id):
-#   form = CommentForm(request.POST)
-#   comment_form = CommentForm()
-#   if form.is_valid():
-#     new_comment = form.save(commit = False)
-#     new_comment.comment_id = comment_id
-#     new_comment.save()
-#   return redirect('thread', comment_id = comment_id)
 
 class RankingList(ListView):
   model = Ranking

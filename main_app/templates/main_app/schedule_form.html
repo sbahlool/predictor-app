@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if object %}
+  <h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
+{% else %}
+  <h1> Add Match </h1>
+{% endif %}
+
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <input type="submit" value="Submit!" class="btn">
+</form>
+
+<script>
+  let dateEle = document.getElementById('id_date');
+  M.Datepicker.init(dateEle, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  })
+  let timeEle = document.getElementById('id_time');
+  M.Timepicker.init(timeEle, {
+    autoClose: true
+    })
+</script>
+
+{% endblock %}

@@ -35,7 +35,7 @@ class Profile(models.Model):
 class Schedule(models.Model):
     gameweek = models.IntegerField(default=1)
     date = models.DateField()
-    time = models.TimeField()
+    time = models.TimeField(default=datetime.time(12, 0, 0))
     hometeam = models.CharField(max_length=20)
     hometeamscore = models.IntegerField(blank=True, null=True)
     awayteam = models.CharField(max_length=20)
