@@ -9,6 +9,7 @@ urlpatterns = [
   path('schedule/', views.ScheduleList.as_view(), name='schedule_index'),
   path('schedule/create/', views.ScheduleCreate.as_view(), name='schedule_create'),
   path('schedule/<int:pk>/update/', views.ScheduleUpdate.as_view(), name='schedule_update'),
+  path('schedule/<int:pk>/delete/', views.ScheduleDelete.as_view(), name='schedule_delete'),
   # path('gameweek/', GameweekView.as_view(), name='gameweek'),
   path('accounts/profile/', profile, name='users-profile'),
   path('accounts/signup/', RegisterView.as_view(), name='signup'),

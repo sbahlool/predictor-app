@@ -40,6 +40,10 @@ class ScheduleUpdate(UpdateView):
   model = Schedule
   fields = ['hometeam','hometeamscore','awayteam','awayteamscore']
   success_url = '/schedule/'
+
+class ScheduleDelete(DeleteView):
+  model = Schedule
+  success_url = '/schedule/'
   
 #### PREDICTIONS
 class PredictionsList(ListView):

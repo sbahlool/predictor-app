@@ -28,8 +28,12 @@
           <div> {{ schedule.hometeamscore }} </div>
           <div> {{ schedule.awayteamscore }} </div>
         <span class="card-title"> {{ schedule.awayteam }}</span>
+            {% if user.is_superuser %}
+            <a href="{% url 'schedule_update' schedule.id %}">Edit</a>
+            <a href="{% url 'schedule_delete' schedule.id %}">Delete</a>
+            {% endif %}
           <div>
-        
+         
         </div>
       </div>
     </div>
