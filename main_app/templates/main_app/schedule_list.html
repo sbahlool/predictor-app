@@ -3,17 +3,15 @@
 {% block content %}
 <h1> Schedule </h1>
 
-<!-- <form action="" method="post">
-
-  <select name="gameweek">
-    {% for gameweek in gameweek_list %}
-      <option value="{{ gameweek.id }}">Gameweek {{ gameweek.id }}</option>
+<form action="" method="get">
+  <label for="gameweek">Select Gameweek:</label>
+  <select name="gameweek" id="gameweek">
+    {% for gw in gameweeks %}
+      <option value="{{ gw }}" {% if selected_gameweek == gw %}selected{% endif %}>Gameweek {{ gw }}</option>
     {% endfor %}
   </select>
-
   <input type="submit" value="Submit">
-
-</form> -->
+</form>
 
 {% for schedule in schedule_list %}
 
@@ -33,7 +31,6 @@
             <a href="{% url 'schedule_delete' schedule.id %}">Delete</a>
             {% endif %}
           <div>
-         
         </div>
       </div>
     </div>

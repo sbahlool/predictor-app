@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Schedule, Predictions, Comment, Ranking
+from .models import Schedule, Predictions, Comment
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -27,6 +27,18 @@ def about(request):
 ### SCHEDULE
 class ScheduleList(ListView):
   model = Schedule
+  template_name = 'schedule_list.html'
+
+  def get_queryset(self):
+      gameweek = self.request.GET.get('gameweek', 1) 
+      return Schedule.objects.filter(gameweek=gameweek)
+
+  def get_context_data(self, **kwargs):
+      context = super().get_context_data(**kwargs)
+      context['gameweeks'] = Schedule.objects.values_list('gameweek', flat=True).distinct()
+      context['selected_gameweek'] = int(self.request.GET.get('gameweek', 1))
+      return context
+
 
 class ScheduleDetail(DetailView):
   model = Schedule
@@ -61,7 +73,6 @@ class PredictionsCreate(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Add logic to get the schedule instance you want to associate with the prediction
         context['schedule'] = Schedule.objects.first()
         return context
 
@@ -104,11 +115,6 @@ class CommentUpdate(UpdateView):
 class CommentDelete(DeleteView):
   model = Comment
   success_url = '/comment/'
-
-### RANKING
-class RankingList(ListView):
-  model = Ranking
-
 
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):

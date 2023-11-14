@@ -27,7 +27,6 @@
           <li><a href="{% url 'schedule_create' %}">Add Match</a></li>
           {% endif %}
           {% if user.is_authenticated %}
-          <li><a href="{% url 'ranking_index' %}">Ranking</a></li>
           <li><a href="{% url 'schedule_index' %}">Schedule</a></li>
           <li><a href="{% url 'comment' %}">Thread</a></li>
           <li><a href="{% url 'logout' %}">Logout</a></li>

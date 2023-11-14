@@ -18,6 +18,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to = "main_app/static/uploads", default="main_app/static/uploads/default.jpeg")
     team = models.CharField(max_length=20, choices=TEAMS, default=TEAMS[0][0])
+    totalpoints = models.IntegerField(default=0)
+    rank = models.IntegerField(default=0)
 
     def __str__(self):
         return (self.user.username)
@@ -31,6 +33,9 @@ class Profile(models.Model):
         new_img = (100, 100)
         img.thumbnail(new_img)
         img.save(self.avatar.path)
+    
+    class Meta:
+      ordering = ['-totalpoints'] # Date descending
 
 class Schedule(models.Model):
     gameweek = models.IntegerField(default=1)
@@ -78,12 +83,3 @@ class Score(models.Model):
     def __str__(self):
         return (f'{self.user} scored {self.points} for {self.schedule.hometeam} vs {self.schedule.awayteam}')
 
-class Ranking(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
-    totalpoints = models.IntegerField()
-
-    def __str__(self):
-        return (f'{self.user} total points: {self.totalpoints}')
-    
-    class Meta:
-      ordering = ['-totalpoints'] # Date descending

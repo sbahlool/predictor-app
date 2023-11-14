@@ -21,3 +21,7 @@ footer.page-footer{
 img{
   border-radius: 30%;
 }
+
+select {
+  display:block
+}

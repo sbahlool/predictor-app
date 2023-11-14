@@ -25,5 +25,4 @@ urlpatterns = [
 
   path('schedule/<int:pk>/prediction/', views.PredictionsCreate.as_view(), name='prediction_create'),
 
-  path('ranking/', views.RankingList.as_view(), name ="ranking_index")
 ]
