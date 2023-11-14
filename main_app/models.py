@@ -48,7 +48,7 @@ class Predictions(models.Model):
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
     predhometeamscore = models.IntegerField()
     predawayteamscore = models.IntegerField()
-    timestamp = models.TimeField()
+    timestamp = models.DateTimeField(auto_now_add=True) 
     user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
 
     def __str__(self):

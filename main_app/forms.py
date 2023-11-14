@@ -54,8 +54,13 @@ class CommentForm(ModelForm):
     model = Comment
     fields = ['comment']
 
-class PredictionForm(ModelForm):
-  class Meta:
-    model = Predictions
-    fields = ['predhometeamscore', 'predawayteamscore']
+class PredictionsForm(forms.ModelForm):
+    class Meta:
+        model = Predictions
+        fields = ['schedule', 'predhometeamscore', 'predawayteamscore']
+
+    def __init__(self, *args, **kwargs):
+        super(PredictionsForm, self).__init__(*args, **kwargs)
+        # Add this line to make the schedule field a dropdown
+        self.fields['schedule'].widget = forms.Select(choices=[(schedule.id, str(schedule)) for schedule in self.fields['schedule'].queryset])
 

@@ -14,7 +14,7 @@ from django import forms
 import datetime
 from extra_views import CreateWithInlinesView, InlineFormSetFactory
 
-from .forms import UpdateUserForm, UpdateProfileForm, RegisterForm, CommentForm
+from .forms import UpdateUserForm, UpdateProfileForm, RegisterForm, CommentForm, PredictionsForm
 
 
 # Create your views here.
@@ -24,10 +24,6 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
-
-# def schedule_index(request):
-#   schedule = Schedule.objects.all()
-#   return render(request, 'schedule.html', {'schedule': schedule})
 
 class ScheduleList(ListView):
   model = Schedule
@@ -45,13 +41,20 @@ class PredictionsList(ListView):
   model = Predictions
 
 class PredictionsCreate(CreateView):
-  model = Predictions
-  fields = ['schedule']
-  success_url = '/schedule/'
+    model = Predictions
+    form_class = PredictionsForm
+    template_name = 'predictions_form.html'
+    success_url = '/schedule/'
 
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add logic to get the schedule instance you want to associate with the prediction
+        context['schedule'] = Schedule.objects.first()
+        return context
 
 
 ######################
@@ -149,18 +152,3 @@ def profile(request):
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
-
-# def signup(request):
-#   error_message = ''
-#   if request.method == 'POST':
-#     form = UserCreationForm(request.POST)
-#     if form.is_valid():
-#       user = form.save()
-#       login(request, user)
-#       return redirect('/')
-#     else:
-#       error_message = 'Invalid Signup', form.error_messages
-    
-#   form = UserCreationForm()
-#   context = {'form': form, 'error message': error_message}
-#   return render(request, 'registration/signup.html', context)

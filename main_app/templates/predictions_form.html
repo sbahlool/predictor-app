@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Predict Scores</h2>
+  {% if schedule %}
+    <form method="post" action="{% url 'prediction_create' pk=schedule.pk %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {{ form.errors }}
+      <button type="submit">Submit</button>
+    </form>
+  {% else %}
+    <p>No schedule available.</p>
+  {% endif %}
+{% endblock %}

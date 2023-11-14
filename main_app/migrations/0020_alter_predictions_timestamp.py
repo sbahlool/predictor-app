@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='predictions',
             name='timestamp',
-            field=models.TimeField(default=datetime.time(12, 0)),
+            field=models.DateTimeField(auto_now_add=True),
         ),
     ]
