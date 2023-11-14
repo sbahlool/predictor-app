@@ -29,7 +29,9 @@
           {% if user.is_authenticated %}
           <li><a href="{% url 'schedule_index' %}">Schedule</a></li>
           <li><a href="{% url 'comment' %}">Thread</a></li>
+          <li><a href="{% url 'ranking_index' %}">Ranking</a></li>
           <li><a href="{% url 'logout' %}">Logout</a></li>
+          <li><a href="{% url 'profile-view' %}">My Profile</a></li>
           <li><a href="{% url 'users-profile' %}">{{ user.username }}</a></li>
           {% else %}
           <li><a href="{% url 'login' %}">Login</a></li>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Schedule, Predictions, Comment
+from .models import Schedule, Predictions, Comment, Profile
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -23,6 +23,15 @@ def home(request):
 
 def about(request):
   return render(request, 'about.html')
+
+# def ranking(request):
+#   return render(request, 'ranking_list.html')
+
+def ranking_index(request):
+    rankings = Profile.objects.all()
+    return render(request, 'ranking_list.html', {'rankings': rankings})
+
+
 
 ### SCHEDULE
 class ScheduleList(ListView):
@@ -151,6 +160,11 @@ class RegisterView(View):
             return redirect(to='login')
 
         return render(request, self.template_name, {'form': form})
+
+#### PROFILE
+
+class ProfileView(ListView):
+  model = Profile
 
 @login_required
 def profile(request):

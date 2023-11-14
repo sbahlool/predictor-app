@@ -10,6 +10,7 @@ main {
 }
 
 footer.page-footer{
+  background-color: #38003c;
   padding: 0;
   text-align: right;
 }
@@ -24,4 +25,8 @@ img{
 
 select {
   display:block
+}
+
+nav{
+  background-color: #38003c;
 }

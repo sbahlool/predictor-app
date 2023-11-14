@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Ranking Page{% endblock title %}
+{% block content %}
+  <h2>Ranking</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Username</th>
+        <th>Total Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ranking in rankings %}
+        <tr>
+          <td>{{ ranking.rank }}</td>
+          <td>{{ ranking.user.username }}</td>
+          <td>{{ ranking.totalpoints }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

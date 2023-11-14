@@ -52,6 +52,5 @@ class PredictionsForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PredictionsForm, self).__init__(*args, **kwargs)
-        # Add this line to make the schedule field a dropdown
         self.fields['schedule'].widget = forms.Select(choices=[(schedule.id, str(schedule)) for schedule in self.fields['schedule'].queryset])
 

@@ -25,17 +25,31 @@ class Profile(models.Model):
         return (self.user.username)
 
     def save(self, *args, **kwargs):
-      super().save()
+        super().save(*args, **kwargs)
 
-      img = Image.open(self.avatar.path)
+        img = Image.open(self.avatar.path)
 
-      if img.height > 100 or img.width > 100:
-        new_img = (100, 100)
-        img.thumbnail(new_img)
-        img.save(self.avatar.path)
-    
+        if img.height > 100 or img.width > 100:
+            new_img = (100, 100)
+            img.thumbnail(new_img)
+            img.save(self.avatar.path)
+
+    def calculate_total_points(self):
+        self.totalpoints = Score.objects.filter(user=self.user).aggregate(models.Sum('points'))['points__sum'] or 0
+        self.save(update_fields=['totalpoints']) 
+
+    def update_rank(self):
+        profiles = Profile.objects.all().order_by('-totalpoints')
+        rank = 1
+        for profile in profiles:
+            profile.rank = rank
+            profile.save(update_fields=['rank'])
+            rank += 1
+
     class Meta:
-      ordering = ['-totalpoints'] # Date descending
+        ordering = ['-totalpoints']
+
+    
 
 class Schedule(models.Model):
     gameweek = models.IntegerField(default=1)
@@ -48,6 +62,31 @@ class Schedule(models.Model):
     
     def __str__(self):
         return (f'{self.hometeam} vs {self.awayteam} on {self.date} at {self.time}')
+
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.update_scores()
+
+    def update_scores(self):
+        predictions = Predictions.objects.filter(schedule=self)
+        for prediction in predictions:
+            points = calculate_points(self.hometeamscore, self.awayteamscore,
+                                      prediction.predhometeamscore, prediction.predawayteamscore)
+            Score.objects.update_or_create(
+                user=prediction.user,
+                schedule=self,
+                prediction=prediction,
+                defaults={'points': points}
+            )
+
+def calculate_points(actual_home_score, actual_away_score, predicted_home_score, predicted_away_score):
+    if actual_home_score == predicted_home_score and actual_away_score == predicted_away_score:
+        return 3  # Correct score
+    elif (actual_home_score - actual_away_score) * (predicted_home_score - predicted_away_score) > 0:
+        return 1  # Correct outcome
+    else:
+        return 0  # No points
 
 class Predictions(models.Model):
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
@@ -83,3 +122,12 @@ class Score(models.Model):
     def __str__(self):
         return (f'{self.user} scored {self.points} for {self.schedule.hometeam} vs {self.schedule.awayteam}')
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        self.update_profile()
+
+    def update_profile(self):
+        user_profile = Profile.objects.get(user=self.user)
+        user_profile.calculate_total_points()
+        user_profile.update_rank()

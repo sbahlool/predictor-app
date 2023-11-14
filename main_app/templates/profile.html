@@ -27,6 +27,7 @@
                           {{ user_form.username }}
                       <label class="small mb-1">Email:</label>
                           {{ user_form.email }}
+                      
                   </div>
                   <div class="form-group">
                     <a href="{% url 'password_change' %}">Change Password</a>
@@ -43,12 +44,5 @@
       </form>
   </div>
 
-
-
-
-
-
-  <!-- <h6>Name:</h6> <span>{{user.first_name}} {{user.last_name}} </span>
-  <h6>Fav Team:</h6><span> {{user.profile.get_team_display}} </span> -->
 </div>
   {% endblock %}

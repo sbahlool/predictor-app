@@ -15,7 +15,11 @@
           <div> {{ schedule.awayteamscore }} </div>
         <span class="card-title"> {{ schedule.awayteam }}</span>
           <div>
-          <a href="{% url 'prediction_create' schedule.id %}">Predict</a>
+            {% if schedule.hometeamscore is None and schedule.awayteamscore is None %}
+            <a href="{% url 'prediction_create' schedule.id %}">Predict</a>
+        {% else %}
+            <a href="{% url 'schedule_index' %}">Go Back</a>
+        {% endif %}
         </div>
       </div>
     </div>
