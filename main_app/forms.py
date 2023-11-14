@@ -50,7 +50,5 @@ class PredictionsForm(forms.ModelForm):
         model = Predictions
         fields = ['schedule', 'predhometeamscore', 'predawayteamscore']
 
-    def __init__(self, *args, **kwargs):
-        super(PredictionsForm, self).__init__(*args, **kwargs)
-        self.fields['schedule'].widget = forms.Select(choices=[(schedule.id, str(schedule)) for schedule in self.fields['schedule'].queryset])
+
 

@@ -5,7 +5,7 @@
   {% if schedule %}
     <form method="post" action="{% url 'prediction_create' pk=schedule.pk %}">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form.as_table }}
       {{ form.errors }}
       <button type="submit">Submit</button>
     </form>
