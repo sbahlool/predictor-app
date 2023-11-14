@@ -8,6 +8,7 @@ urlpatterns = [
   path('about/', views.about, name='about'),
   path('schedule/', views.ScheduleList.as_view(), name='schedule_index'),
   path('schedule/create/', views.ScheduleCreate.as_view(), name='schedule_create'),
+  path('schedule/<int:pk>/update/', views.ScheduleUpdate.as_view(), name='schedule_update'),
   # path('gameweek/', GameweekView.as_view(), name='gameweek'),
   path('accounts/profile/', profile, name='users-profile'),
   path('accounts/signup/', RegisterView.as_view(), name='signup'),
@@ -22,7 +23,6 @@ urlpatterns = [
   path('prediction/<int:pk>', views.PredictionsList.as_view(), name='prediction_detail'),
 
   path('schedule/<int:pk>/prediction/', views.PredictionsCreate.as_view(), name='prediction_create'),
-  # path('schedule/<int:pk>/prediction/', views.SchedulePrediction.as_view(), name='prediction_create'),
 
   path('ranking/', views.RankingList.as_view(), name ="ranking_index")
 ]

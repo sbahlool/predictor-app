@@ -24,7 +24,7 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
-
+### SCHEDULE
 class ScheduleList(ListView):
   model = Schedule
 
@@ -35,8 +35,13 @@ class ScheduleCreate(CreateView):
   model = Schedule
   fields = ['gameweek', 'date', 'time', 'hometeam', 'awayteam']
   success_url = '/schedule/'
-  
 
+class ScheduleUpdate(UpdateView):
+  model = Schedule
+  fields = ['hometeam','hometeamscore','awayteam','awayteamscore']
+  success_url = '/schedule/'
+  
+#### PREDICTIONS
 class PredictionsList(ListView):
   model = Predictions
 
@@ -71,7 +76,7 @@ class PredictionsCreate(CreateView):
 
   
 
-
+### COMMENT
 class CommentList(ListView):
   model = Comment
 
@@ -96,6 +101,7 @@ class CommentDelete(DeleteView):
   model = Comment
   success_url = '/comment/'
 
+### RANKING
 class RankingList(ListView):
   model = Ranking
 

@@ -61,8 +61,7 @@ class Comment(models.Model):
     timestamp = models.TimeField()
 
     class Meta:
-    # ordering = ['date'] # Date ascending
-      ordering = ['-date', 'timestamp'] # Date descending
+      ordering = ['-date', '-timestamp']
 
     def __str__(self):
         return (f'{self.user} said {self.comment} at {self.timestamp}')

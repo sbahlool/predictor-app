@@ -25,9 +25,9 @@
     autoClose: true
   })
   let timeEle = document.getElementById('id_time');
-  M.Timepicker.init(timeEle, {
-    autoClose: true
-    })
+  timeEle.setAttribute("step", 1)
+  timeEle.setAttribute("type", "time")
+
 </script>
 
 {% endblock %}
