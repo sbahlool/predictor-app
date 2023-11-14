@@ -85,19 +85,6 @@ class PredictionsCreate(CreateView):
         context['schedule'] = Schedule.objects.first()
         return context
 
-
-######################
-# class PredictionsCreate(InlineFormSetFactory):
-#   model = Predictions
-#   fields = ['predhometeamscore','predawayteamscore']
-
-# class SchedulePrediction(CreateWithInlinesView):
-#   model = Schedule
-#   inlines = [PredictionsCreate]
-#   fields = ['hometeam','awayteam']
-#   template_name = 'prediction_schedule.html'
-#######################
-
   
 
 ### COMMENT
@@ -176,7 +163,7 @@ def profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='users-profile')
+            return redirect(to='profile-view')
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
