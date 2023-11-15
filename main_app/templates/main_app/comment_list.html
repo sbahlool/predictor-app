@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Thread{% endblock title %}
 {% block content %}
-<h1> Thread </h1>
+<h1 class="thread-header"> Thread </h1>
 
-<a href = "{% url 'comment_create' %}">Add Comment</a>
-<i class="fa fa-rotate-right"></i>
-<h4 class="card-title">Recent Comments</h4>
+<a class="comment-btn" href = "{% url 'comment_create' %}">Add Comment</a>
     <div class="container d-flex justify-content-center mt-100 mb-100">
       <div class="row">
         {% for comment in comment_list %} 
@@ -22,7 +20,7 @@
                         {% load static %}
                           <div class="p-2"><span class="round"><img src="{% static comment.user.profile.avatar|cut:'main_app/static/' %}" alt="user" width="50"></span></div>
                           <div class="comment-text w-100">
-                              <h5>{{ comment.user.username}}</h5>
+                              <h5><strong>{{ comment.user.username}}</strong></h5>
                               <div class="comment-footer">
                                   <span class="date">{{ comment.date }}</span>
                                   {% if comment.user == request.user %}

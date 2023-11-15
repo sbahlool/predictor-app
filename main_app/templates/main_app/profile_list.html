@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Profile{% endblock title %}
 {% block content %}
-    <h1 class="my-4"> My Profile </h1>
-    <div class="row my-3 p-3">
+    <h1 class="match-title"> My Profile </h1>
+    <!-- <div class="row my-3 p-3">
         {% load static %}
-        <img class="img-fluid rounded-circle" width="100px" height="100px" src="{% static user.profile.avatar|cut:'main_app/static/' %}">
+        <img class="img-fluid rounded-circle" src="{% static user.profile.avatar|cut:'main_app/static/' %}">
     </div>
     <div class="form-content">
         <form method="post" enctype="multipart/form-data">
@@ -30,5 +30,49 @@
                 <a href="{% url 'users-profile' %}" class="btn btn-dark btn-lg">Update Profile</a>
             </div>
         </form>
-    </div>
+    </div> -->
+    <form method="post" enctype="multipart/form-data">
+    <div class="container profile-page">
+        <div class="row">
+          <div class="col-xl-6 col-lg-7 col-md-12">
+            
+            <div class="card profile-header">
+              <div class="body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-12">
+                    {% load static %}
+                    <div class="profile-image float-md-right"> <img class="image-display" src="{% static user.profile.avatar|cut:'main_app/static/' %}" alt="">
+                    </div>
+      
+                  <div class="col-lg-8 col-md-8 col-12">
+                    <h5 class="m-t-0 m-b-0"><strong> First Name: </strong> {{ user.first_name }}</h5>
+                  </div>
+      
+                  <div class="col-lg-8 col-md-8 col-12">
+                    <h5 class="m-t-0 m-b-0"><strong> Last Name: </strong>  {{ user.last_name }}</h5>
+                  </div>
+      
+                  <div class="col-lg-8 col-md-8 col-12">
+                    <h5 class="m-t-0 m-b-0"><strong>Username: </strong> {{ user.username }}</h5>
+                  </div>
+      
+                  <div class="col-lg-8 col-md-8 col-12">
+                    <h5 class="m-t-0 m-b-0"><strong>Email: </strong> {{ user.email }}</h5>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-12">
+                    <h5 class="m-t-0 m-b-0"><strong>Member Since: </strong> {{ user.date_joined }}</h5>
+                  </div>
+      
+                  <div>
+                    <a class="btn btn-primary btn-round" id="edit-btn" href="{% url 'users-profile' %}" class="btn btn-dark btn-lg">Update Profile</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+    </form>
 {% endblock %}
+

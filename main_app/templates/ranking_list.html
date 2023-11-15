@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 {% block title %}Ranking Page{% endblock title %}
 {% block content %}
-  <h2>Ranking</h2>
-  <table>
+  <h2 class="match-title">Ranking</h2>
+  <table class="table">
     <thead>
       <tr>
-        <th>Rank</th>
-        <th>Username</th>
-        <th>Total Points</th>
+        <th class="rank-head" scope="col">Rank</th>
+        <th class="rank-head" scope="col">Username</th>
+        <th class="rank-head" scope="col">Total Points</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="table-group-divider">
       {% for ranking in rankings %}
         <tr>
-          <td>{{ ranking.rank }}</td>
-          <td>{{ ranking.user.username }}</td>
-          <td>{{ ranking.totalpoints }}</td>
+          <td class="rank-data" scope="row">{{ ranking.rank }}</td>
+          <td class="rank-data">{{ ranking.user.username }}</td>
+          <td class="rank-data" colspan="2">{{ ranking.totalpoints }}</td>
         </tr>
       {% endfor %}
     </tbody>

@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Predict Scores</h2>
+  <h2 class="match-title">Predict Scores</h2>
       <!-- {{ form.context.selectedSchedule }} -->
 
   {% if schedule %}
     <form method="post" action="">
       {% csrf_token %}
       <!-- {{ form.schedule }} -->
-      {{ form.as_table }}
+      {{ form.as_p }}
       {{ form.errors }}
-      <button type="submit">Submit</button>
+      <button class="pred-btn" type="submit">Submit</button>
     </form>
   {% else %}
     <p>No schedule available.</p>

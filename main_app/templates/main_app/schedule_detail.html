@@ -1,29 +1,25 @@
 {% extends 'base.html' %}
 {% block title %}Schedule{% endblock title %}
 {% block content %}
-<h1> Schedule </h1>
+<h1 class="schedule-header"> Schedule </h1>
 
 
-<div class="card">
-    <div class="card-content">
-      <div class="flex-container">
-      <div>
-        <h4>{{ schedule.date }}</h4>
-        <h4>{{ schedule.time }}</h4>
-        <span class="card-title">{{ schedule.hometeam }}</span>
-          <div> {{ schedule.hometeamscore }} </div>
-          <div> {{ schedule.awayteamscore }} </div>
-        <span class="card-title"> {{ schedule.awayteam }}</span>
-          <div>
-            {% if schedule.hometeamscore is None and schedule.awayteamscore is None %}
-            <a href="{% url 'prediction_create' pk=schedule.id %}">Predict</a>
-        {% else %}
-           <p> Match ended and predictions is locked. <a href="{% url 'schedule_index' %}">Go Back</a></p>
-        {% endif %}
-        </div>
-      </div>
-    </div>
+<div class="card text-center">
+  <div class="card-header">
+    Featured
   </div>
-  
+  <div class="card-body">
+    <h5 class="card-title">{{ schedule.date }} at {{ schedule.time }} </h5>
+    <p class="card-text">  {{ schedule.hometeam }}   <span><strong>  {{ schedule.hometeamscore }}  </strong>  </span>:<span><strong>  {{ schedule.awayteamscore }}  </strong></span>  {{ schedule.awayteam }}   </p>
+    {% if schedule.hometeamscore is None and schedule.awayteamscore is None %}
+    <a href="{% url 'prediction_create' pk=schedule.id %}" class="sched-btn">Predict</a>
+  </div>
+   {% else %}
+  <div class="card-footer text-body-secondary">
+    Match ended and predictions is locked. <a class="sched-btn" href="{% url 'schedule_index' %}">Go Back</a>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}
+
+

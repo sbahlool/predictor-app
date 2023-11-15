@@ -1,42 +1,41 @@
 {% extends 'base.html' %}
 {% block title %}Schedule{% endblock title %}
 {% block content %}
-<h1> Schedule </h1>
+
+<h1 class="schedule-header"> Schedule </h1>
 
 <form action="" method="get">
-  <label for="gameweek">Select Gameweek:</label>
-  <select name="gameweek" id="gameweek">
+  <label for="gameweek" class="active">Select Gameweek:</label>
+  <select name="gameweek" id="gameweek" class="form-select">
     {% for gw in gameweeks %}
       <option value="{{ gw }}" {% if selected_gameweek == gw %}selected{% endif %}>Gameweek {{ gw }}</option>
     {% endfor %}
   </select>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Submit" class="btn">
 </form>
 
 {% for schedule in schedule_list %}
 
-<div class="card">
+<div class="card text-center">
   <a href="{% url 'schedule_detail' schedule.id %}">
-    <div class="card-content">
-      <div class="flex-container">
-      <div>
-        <h4>{{ schedule.date }}</h4>
-        <h4>{{ schedule.time }}</h4>
-        <span class="card-title">{{ schedule.hometeam }}</span>
-          <div> {{ schedule.hometeamscore }} </div>
-          <div> {{ schedule.awayteamscore }} </div>
-        <span class="card-title"> {{ schedule.awayteam }}</span>
-            {% if user.is_superuser %}
-            <a href="{% url 'schedule_update' schedule.id %}">Edit</a>
-            <a href="{% url 'schedule_delete' schedule.id %}">Delete</a>
-            {% endif %}
-          <div>
-        </div>
-      </div>
-    </div>
-  </a>
+  <div class="card-header">
+    Featured
   </div>
-  
+  <div class="card-body">
+    <h5 class="card-title">{{ schedule.date }} at {{ schedule.time }} </h5>
+    <p class="card-text">  {{ schedule.hometeam }}   <span><strong>  {{ schedule.hometeamscore }}  </strong>  </span>:<span><strong>  {{ schedule.awayteamscore }}  </strong></span>  {{ schedule.awayteam }}   </p>
+    
+  </div>
+
+  <div class="card-footer text-body-secondary">
+    {% if user.is_superuser %}
+    <a href="{% url 'schedule_update' schedule.id %}" data-abc="true"><i class="glyphicon glyphicon-edit"></i></a>
+    <a href="{% url 'schedule_delete' schedule.id %}" data-abc="true"><i class="glyphicon glyphicon-remove"></i></a>
+            {% endif %}
+  </div>
+</a>
 </div>
 {% endfor %}
 {% endblock %}
+
+
