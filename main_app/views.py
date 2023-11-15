@@ -34,7 +34,7 @@ def ranking_index(request):
 
 
 ### SCHEDULE
-class ScheduleList(ListView):
+class ScheduleList(LoginRequiredMixin, ListView):
   model = Schedule
   template_name = 'schedule_list.html'
 
@@ -49,28 +49,28 @@ class ScheduleList(ListView):
       return context
 
 
-class ScheduleDetail(DetailView):
+class ScheduleDetail(LoginRequiredMixin, DetailView):
   model = Schedule
 
-class ScheduleCreate(CreateView):
+class ScheduleCreate(LoginRequiredMixin, CreateView):
   model = Schedule
   fields = ['gameweek', 'date', 'time', 'hometeam', 'awayteam']
   success_url = '/schedule/'
 
-class ScheduleUpdate(UpdateView):
+class ScheduleUpdate(LoginRequiredMixin, UpdateView):
   model = Schedule
   fields = ['hometeam','hometeamscore','awayteam','awayteamscore']
   success_url = '/schedule/'
 
-class ScheduleDelete(DeleteView):
+class ScheduleDelete(LoginRequiredMixin, DeleteView):
   model = Schedule
   success_url = '/schedule/'
   
 #### PREDICTIONS
-class PredictionsList(ListView):
+class PredictionsList(LoginRequiredMixin, ListView):
   model = Predictions
 
-class PredictionsCreate(CreateView):
+class PredictionsCreate(LoginRequiredMixin, CreateView):
     model = Predictions
     form_class = PredictionsForm
     template_name = 'predictions_form.html'
@@ -101,7 +101,7 @@ class PredictionsCreate(CreateView):
         return form
 
 ### COMMENT
-class CommentList(ListView):
+class CommentList(LoginRequiredMixin, ListView):
   model = Comment
 
 class CommentCreate(LoginRequiredMixin, CreateView):
@@ -116,12 +116,12 @@ class CommentCreate(LoginRequiredMixin, CreateView):
     return super().form_valid(form)
   
 
-class CommentUpdate(UpdateView):
+class CommentUpdate(LoginRequiredMixin, UpdateView):
   model = Comment
   fields = ['comment']
   success_url = '/comment/'
 
-class CommentDelete(DeleteView):
+class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
   success_url = '/comment/'
 
