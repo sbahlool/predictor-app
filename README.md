@@ -17,11 +17,11 @@ This platform allows users to compete with other users in predicting football ma
 
 ![1](./main_app/static/uploads/Screenshot%202023-11-16%20at%201.26.18%20AM.png)
 
-![2](../Predictor/main_app/static/uploads/Screenshot%202023-11-16%20at%201.26.33%20AM.png)
+![2](./main_app/static/uploads/Screenshot%202023-11-16%20at%201.26.33%20AM.png)
 
-![3](../Predictor/main_app/static/uploads/Screenshot%202023-11-16%20at%201.26.40%20AM.png)
+![3](./main_app/static/uploads/Screenshot%202023-11-16%20at%201.26.40%20AM.png)
 
-![4](../Predictor/main_app/static/uploads/Screenshot%202023-11-16%20at%201.26.47%20AM.png)
+![4](./main_app/static/uploads/Screenshot%202023-11-16%20at%201.26.47%20AM.png)
 
 ---
 
