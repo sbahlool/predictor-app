@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<h1> Delete Match </h1>
-
-<h4> Are you sure you want to delete match "<span class="teal-text"> {{ object }}</span>" ? </h4>
+<h1 class="match-title"> Delete Match </h1>
+<div class="signup-form">
+<h4> Are you sure you want to delete match "<span class="delete-text"><strong> {{ object }}</strong></span>" ? </h4>
 
 <form action="" method="POST">
   {% csrf_token %}
   <input type="submit" value="Yes!" class="btn">
   <a href="{% url 'schedule_index' %}" class="btn"> Cancel</a>
 </form>
-
+</div>
 {% endblock %}

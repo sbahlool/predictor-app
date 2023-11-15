@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Profile Page{% endblock title %}
 {% block content %}
+<div class="signup-form">
 <div class="row my-3 p-3">
   {% load static %}
   <img class="img-fluid rounded-circle" width="100px" height="100px" src="{% static user.profile.avatar|cut:'main_app/static/' %}">
@@ -17,6 +18,7 @@
         </button>
     </div>
 {% endif %}
+
 <div class="form-content">
   <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
@@ -51,5 +53,6 @@
       <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
       <button type="reset" class="btn btn-dark btn-lg">Reset</button>
   </form>
+</div>
 </div>
 {% endblock %}

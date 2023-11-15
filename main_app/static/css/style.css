@@ -181,6 +181,11 @@ nav ul a{
 label.active{
   color: #38003c !important;
 }
+
+.delete-text{
+  color: #38003c !important;
+}
+
 input.btn{
   background-color: #043C00 !important;
   color: #f2f2f2 !important;
