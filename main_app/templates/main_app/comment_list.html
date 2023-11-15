@@ -4,22 +4,45 @@
 <h1> Thread </h1>
 
 <a href = "{% url 'comment_create' %}">Add Comment</a>
+<i class="fa fa-rotate-right"></i>
+<h4 class="card-title">Recent Comments</h4>
+    <div class="container d-flex justify-content-center mt-100 mb-100">
+      <div class="row">
+        {% for comment in comment_list %} 
 
-    {% for comment in comment_list %}
-<div>
-  <hr>
-  <h5>{{ comment.user.username}}</h3>
-  <p>{{ comment.comment }}</p>
-  <h8>{{ comment.timestamp }}</h7>
-  <h8>{{ comment.date }}</h7>
-    {% if comment.user == request.user %}
-    <div class="card-action">
-      <a href="{% url 'comment_update' comment.id %}">Edit</a>
-      <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+          <div class="col-md-12">  
+
+            <div class="card">
+              <div class="card-body">
+              </div>
+                    <div class="comment-widgets m-b-20">
+
+                      <div class="d-flex flex-row comment-row">
+
+                        {% load static %}
+                          <div class="p-2"><span class="round"><img src="{% static comment.user.profile.avatar|cut:'main_app/static/' %}" alt="user" width="50"></span></div>
+                          <div class="comment-text w-100">
+                              <h5>{{ comment.user.username}}</h5>
+                              <div class="comment-footer">
+                                  <span class="date">{{ comment.date }}</span>
+                                  {% if comment.user == request.user %}
+                                          <a href="{% url 'comment_update' comment.id %}" data-abc="true"><i class="glyphicon glyphicon-edit"></i></a>
+                                          <a href="{% url 'comment_delete' comment.id %}" data-abc="true"><i class="glyphicon glyphicon-remove"></i></a>
+                                    {% endif %}
+                                    
+                              </div>
+                              <p class="m-b-5 m-t-10">{{ comment.comment }}</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+          {% endfor %}
+
+      </div>
     </div>
-    {% endif %}
-  <hr>
-</div>
-    {% endfor %}
 
   {% endblock %}
+
+  

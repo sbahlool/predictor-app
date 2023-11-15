@@ -1,8 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
 body {
   background-color: whitesmoke;
+  background: url("../uploads/field.jpg") no-repeat center center fixed;
+  background-size: cover;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: medium !important;
 }
 
 main {
@@ -29,5 +35,182 @@ select {
 
 nav{
   background-color: #38003c;
+  font-size: x-large;
 }
 
+
+
+
+.card-no-border .card {
+    border: 0px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    /* padding: 1.25rem */
+}
+
+.comment-widgets .comment-row:hover {
+    background: rgba(0, 0, 0, 0.02);
+    cursor: pointer;
+}
+
+.comment-widgets .comment-row {
+    border-bottom: 1px solid rgba(120, 130, 140, 0.13);
+    padding: 15px;
+}
+.comment-text:hover{
+    visibility: hidden;
+}
+.comment-text:hover{
+    visibility: visible;
+}
+
+.label {
+    padding: 3px 10px;
+    line-height: 13px;
+    color: #ffffff;
+    font-weight: 400;
+    border-radius: 4px;
+    font-size: 75%;
+}
+
+.round img {
+    border-radius: 100%;
+}
+
+.label-info {
+    background-color: #1976d2;
+}
+
+.label-success {
+    background-color: green;
+}
+
+.label-danger {
+    background-color: #ef5350;
+}
+
+.action-icons a {
+    padding-left: 7px;
+    vertical-align: middle;
+    color: black;
+}
+
+.action-icons a:hover {
+    color: #1976d2;
+}
+
+.mt-100 {
+    margin-top: 100px
+}
+
+.mb-100 {
+    margin-bottom: 100px
+}
+
+.glyphicon-edit{
+  color: rgb(101, 162, 10)
+}
+
+.glyphicon-remove{
+  color: red
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #38003c;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+li a.active {
+  color: white;
+  background-color: #38003c;
+}
+
+nav ul a{
+  font-size: 17px;
+}
+
+.active {
+  font-size: large !important;
+  color:#ddd !important;
+}
+
+.signup-form{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+label.active{
+  color: #38003c !important;
+}
+input.btn{
+  background-color: #043C00 !important;
+  color: #f2f2f2 !important;
+}
+.signup-header  {
+  text-align: center;
+  color: black;
+}
+.login-form{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+.login-header{
+  text-align: center;
+  color: black;
+}
+
+input[type=text] {
+  opacity: 0.5;
+  background-color: #38003c !important;
+  color: white !important;
+}
+
+input[type=password] {
+  opacity: 0.5;
+  background-color: #38003c !important;
+  color: white !important;
+}
+
+.home-title{
+color: white;
+font-size: 200px;
+font-weight: 500;
+opacity: 0.5;
+font-family: 'Kanit', sans-serif !important;
+}
+
+.match-form{
+  border-radius: 5px !important;
+  background-color: #f2f2f2 !important;
+  padding: 20px !important;
+}
+
+.match-header{
+  text-align: center !important;
+  color: black !important;
+}

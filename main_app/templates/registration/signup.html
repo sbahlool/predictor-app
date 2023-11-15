@@ -2,17 +2,54 @@
 
 {% block content %}
 
-<h1>Signup</h1>
+<h1 class="signup-header">Signup</h1>
 
 {% if error_message %}
 <p class="red-text"> {{ error_message }} </p>
 {% endif %}
 
-<form action="{% url 'signup' %}" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" class="btn" value="Signup">
+<div class="signup-form">
+  <form action="{% url 'signup' %}" method="post">
+    {% csrf_token %}
 
-</form>
+    <div>
+      <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+      {{ form.first_name }}
+      {{ form.first_name.errors }}
+    </div>
+
+    <div>
+      <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+      {{ form.last_name }}
+      {{ form.last_name.errors }}
+    </div>
+
+    <div>
+      <label for="{{ form.username.id_for_label }}">Username:</label>
+      {{ form.username }}
+      {{ form.username.errors }}
+    </div>
+
+    <div>
+      <label for="{{ form.email.id_for_label }}">Email:</label>
+      {{ form.email }}
+      {{ form.email.errors }}
+    </div>
+
+    <div>
+      <label for="{{ form.password1.id_for_label }}">Password:</label>
+      {{ form.password1 }}
+      {{ form.password1.errors }}
+    </div>
+
+    <div>
+      <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+      {{ form.password2 }}
+      {{ form.password2.errors }}
+    </div>
+
+    <input type="submit" class="btn" value="Signup">
+  </form>
+</div>
 
 {% endblock %}

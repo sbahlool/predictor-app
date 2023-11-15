@@ -5,17 +5,17 @@
 {% if object %}
   <h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
 {% else %}
-  <h1> Add Match </h1>
+  <h1 class="match-header"> Add Match </h1>
 {% endif %}
-
+<div class="match-form">
 <form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <table>
-    {{ form.as_table }}
+    {{ form.as_p }}
   </table>
   <input type="submit" value="Submit!" class="btn">
 </form>
-
+</div>
 <script>
   let dateEle = document.getElementById('id_date');
   M.Datepicker.init(dateEle, {

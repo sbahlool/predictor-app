@@ -15,6 +15,10 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+        labels = {
+            'password1': 'Password',
+            'password2': 'Confirm Password',
+        }
 
 class GameweekViewForm(ModelForm):
     class Meta:
