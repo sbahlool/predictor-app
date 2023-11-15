@@ -76,16 +76,29 @@ class PredictionsCreate(CreateView):
     template_name = 'predictions_form.html'
     success_url = '/schedule/'
 
+    def get_context_data(self, **kwargs):
+        print("test")
+        context = super().get_context_data(**kwargs)
+        # context['selectedSchedule'] = Schedule.objects.all().filter(id = self.kwargs['pk'])
+        # print(context['selectedSchedule'])
+        context["schedule"] = Schedule.objects.all().filter(id = self.kwargs['pk'])
+        # print(context['schedule'])
+        return context
+
     def form_valid(self, form):
+        # print(schedule_id)
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['schedule'] = Schedule.objects.first()
-        return context
-
-  
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        # print(self.kwargs['pk'])
+        # print(form.fields['schedule'])
+        form.fields['schedule'].queryset = Schedule.objects.all().filter(id = self.kwargs['pk'])
+        form.fields['schedule'].empty_label = None
+        # form['idd'] = self.kwargs['pk']
+        # print(form)
+        return form
 
 ### COMMENT
 class CommentList(ListView):
