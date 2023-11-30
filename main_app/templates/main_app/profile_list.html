@@ -25,12 +25,16 @@
                     <h5 class="m-t-0 m-b-0"><strong>Username: </strong> {{ user.username }}</h5>
       
                     <h5 class="m-t-0 m-b-0"><strong>Email: </strong> {{ user.email }}</h5>
+
+                    <h5 class="m-t-0 m-b-0"><strong>Team: </strong> {{ user.profile.team }}<img height="20px" width="20px" src="{% static user.profile.team.logo|cut:'main_app/static/' %}"></h5>
       
                     <h5 class="m-t-0 m-b-0"><strong>Member Since: </strong> {{ user.date_joined }}</h5>
+
+
                     <hr>
                     <h5 class="m-t-0 m-b-0"><strong>Total Points: </strong> {{ user.profile.totalpoints }}</h5>
                     <h5 class="m-t-0 m-b-0"><strong>Rank: </strong> {{ user.profile.rank }}</h5>
-      
+                    <hr>
                     <div class="col-12">
                       <a class="sched-btn" id="edit-btn" href="{% url 'users-profile' %}">Update Profile</a>
                     </div>

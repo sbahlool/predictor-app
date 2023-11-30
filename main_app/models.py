@@ -14,10 +14,17 @@ TEAMS = (
   ('Tottenham', 'Tottenham'),
 )
 
+class Teams(models.Model):
+    team_name = models.CharField(max_length=20)
+    logo = models.ImageField(upload_to = "main_app/static/uploads")
+
+    def __str__(self):
+        return (self.team_name)
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to = "main_app/static/uploads", default="main_app/static/uploads/default.jpeg")
-    team = models.CharField(max_length=20, choices=TEAMS, default=TEAMS[0][0])
+    avatar = models.ImageField(upload_to="main_app/static/uploads", default="main_app/static/uploads/default.jpeg")
+    team = models.ForeignKey(Teams, on_delete=models.SET_NULL, null=True)  # Use ForeignKey to link to Teams model
     totalpoints = models.IntegerField(default=0)
     rank = models.IntegerField(default=0)
 
@@ -59,6 +66,7 @@ class Schedule(models.Model):
     hometeamscore = models.IntegerField(blank=True, null=True)
     awayteam = models.CharField(max_length=20)
     awayteamscore = models.IntegerField(blank=True, null=True)
+    match_completed = models.BooleanField(default=False)
     
     def __str__(self):
         return (f'{self.hometeam} vs {self.awayteam} on {self.date} at {self.time}')
@@ -71,14 +79,23 @@ class Schedule(models.Model):
     def update_scores(self):
         predictions = Predictions.objects.filter(schedule=self)
         for prediction in predictions:
-            points = calculate_points(self.hometeamscore, self.awayteamscore,
-                                      prediction.predhometeamscore, prediction.predawayteamscore)
+            points = calculate_points(self.hometeamscore, self.awayteamscore, prediction.predhometeamscore, prediction.predawayteamscore)
             Score.objects.update_or_create(
                 user=prediction.user,
                 schedule=self,
                 prediction=prediction,
                 defaults={'points': points}
             )
+        if self.hometeamscore is not None and self.awayteamscore is not None:
+            self.match_completed = True
+
+    def save(self, *args, **kwargs):
+        if self.match_completed:
+            super().save(*args, **kwargs)
+        else:
+            self.update_scores()
+            super().save(*args, **kwargs)
+            
 
 def calculate_points(actual_home_score, actual_away_score, predicted_home_score, predicted_away_score):
     if actual_home_score == predicted_home_score and actual_away_score == predicted_away_score:

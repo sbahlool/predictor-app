@@ -35,18 +35,23 @@ def ranking_index(request):
 
 ### SCHEDULE
 class ScheduleList(LoginRequiredMixin, ListView):
-  model = Schedule
-  template_name = 'schedule_list.html'
+    model = Schedule
+    template_name = 'schedule_list.html'
 
-  def get_queryset(self):
-      gameweek = self.request.GET.get('gameweek', 1) 
-      return Schedule.objects.filter(gameweek=gameweek)
+    def get_queryset(self):
+        gameweek = self.request.GET.get('gameweek', 1)
+        return Schedule.objects.filter(gameweek=gameweek)
 
-  def get_context_data(self, **kwargs):
-      context = super().get_context_data(**kwargs)
-      context['gameweeks'] = Schedule.objects.values_list('gameweek', flat=True).distinct()
-      context['selected_gameweek'] = int(self.request.GET.get('gameweek', 1))
-      return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Get distinct gameweeks and sort them in descending order
+        gameweeks = Schedule.objects.values_list('gameweek', flat=True).distinct()
+        context['gameweeks'] = sorted(gameweeks, reverse=False)
+
+        # Set the selected gameweek
+        context['selected_gameweek'] = int(self.request.GET.get('gameweek', 1))
+        return context
 
 
 class ScheduleDetail(LoginRequiredMixin, DetailView):
@@ -59,7 +64,7 @@ class ScheduleCreate(LoginRequiredMixin, CreateView):
 
 class ScheduleUpdate(LoginRequiredMixin, UpdateView):
   model = Schedule
-  fields = ['hometeam','hometeamscore','awayteam','awayteamscore']
+  fields = ['hometeam','hometeamscore','awayteam','awayteamscore', 'match_completed']
   success_url = '/schedule/'
 
 class ScheduleDelete(LoginRequiredMixin, DeleteView):
@@ -175,10 +180,10 @@ def profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='profile-view')
+            return redirect('profile-view')  # Redirect to the user's profile page after successful update
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, 'profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'update_profile.html', {'user_form': user_form, 'profile_form': profile_form})
+

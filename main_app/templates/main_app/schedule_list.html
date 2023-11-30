@@ -8,7 +8,7 @@
   <label for="gameweek" class="active">Select Gameweek:</label>
   <select name="gameweek" id="gameweek" class="form-select">
     {% for gw in gameweeks %}
-      <option value="{{ gw }}" {% if selected_gameweek == gw %}selected{% endif %}>Gameweek {{ gw }}</option>
+      <option value="{{ gw }}" {% if selected_gameweek == gw %} selected {% endif %}>Gameweek {{ gw }}</option>
     {% endfor %}
   </select>
   <input type="submit" value="Submit" class="btn">
@@ -22,8 +22,17 @@
     Featured
   </div>
   <div class="card-body">
+    
     <h5 class="card-title">{{ schedule.date }} at {{ schedule.time }} </h5>
-    <p class="card-text">  {{ schedule.hometeam }}   <span><strong>  {{ schedule.hometeamscore }}  </strong>  </span>:<span><strong>  {{ schedule.awayteamscore }}  </strong></span>  {{ schedule.awayteam }}   </p>
+    <p class="card-text">  {{ schedule.hometeam }}   <span><strong>  {{ schedule.hometeamscore|default_if_none:"  " }} </strong>
+    {% if schedule.match_completed %}  
+    </span>:<span>
+    {% else %}
+    </span>vs<span>
+    {% endif %}
+    <strong>  {{ schedule.awayteamscore|default_if_none:"  " }}  </strong>
+    </span>  {{ schedule.awayteam }}
+    </p>
     
   </div>
 
@@ -31,9 +40,10 @@
     {% if user.is_superuser %}
     <a href="{% url 'schedule_update' schedule.id %}" data-abc="true"><i class="glyphicon glyphicon-edit"></i></a>
     <a href="{% url 'schedule_delete' schedule.id %}" data-abc="true"><i class="glyphicon glyphicon-remove"></i></a>
-            {% endif %}
+    {% endif %}
   </div>
-</a>
+
+  </a>
 </div>
 {% endfor %}
 {% endblock %}
