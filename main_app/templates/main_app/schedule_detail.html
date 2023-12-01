@@ -10,7 +10,8 @@
   </div>
   <div class="card-body">
     <h5 class="card-title">{{ schedule.date }} at {{ schedule.time }} </h5>
-    <p class="card-text">  {{ schedule.hometeam }}   <span><strong>  {{ schedule.hometeamscore|default_if_none:"  " }}  </strong>  </span>vs<span><strong>  {{ schedule.awayteamscore|default_if_none:"  " }}  </strong></span>  {{ schedule.awayteam }}   </p>
+    {% load static %}
+    <p class="card-text"> <img width="100px" height="100px" src="{% static schedule.hometeam.logo|cut:'main_app/static/' %}">  {{ schedule.hometeam }}   <span><strong>  {{ schedule.hometeamscore|default_if_none:"  " }}  </strong>  </span>vs<span><strong>  {{ schedule.awayteamscore|default_if_none:"  " }}  </strong></span>  {{ schedule.awayteam }}  <img width="100px" height="100px" src="{% static schedule.awayteam.logo|cut:'main_app/static/' %}"> </p>
     {% if schedule.hometeamscore is None and schedule.awayteamscore is None %}
     <a href="{% url 'prediction_create' pk=schedule.id %}" class="sched-btn">Predict</a>
   </div>
