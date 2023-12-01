@@ -6,12 +6,11 @@
 
 <form action="" method="get">
   <label for="gameweek" class="active">Select Gameweek:</label>
-  <select name="gameweek" id="gameweek" class="form-select">
+  <select name="gameweek" id="gameweek" class="form-select" onchange="updateSchedule()">
     {% for gw in gameweeks %}
       <option value="{{ gw }}" {% if selected_gameweek == gw %} selected {% endif %}>Gameweek {{ gw }}</option>
     {% endfor %}
   </select>
-  <input type="submit" value="Submit" class="btn">
 </form>
 
 {% for schedule in schedule_list %}
@@ -46,6 +45,12 @@
   </a>
 </div>
 {% endfor %}
+<script>
+  function updateSchedule() {
+    const selectedGameweek = document.getElementById('gameweek').value;
+    window.location.href = `?gameweek=${selectedGameweek}`;
+  }
+</script>
 {% endblock %}
 
 

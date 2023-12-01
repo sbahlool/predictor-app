@@ -54,7 +54,7 @@ class Profile(models.Model):
             rank += 1
 
     class Meta:
-        ordering = ['-totalpoints']
+        ordering = ['rank']
 
     
 
@@ -62,19 +62,25 @@ class Schedule(models.Model):
     gameweek = models.IntegerField(default=1)
     date = models.DateField()
     time = models.TimeField(default=datetime.time(12, 0, 0))
-    hometeam = models.CharField(max_length=20)
-    hometeamscore = models.IntegerField(blank=True, null=True)
-    awayteam = models.CharField(max_length=20)
-    awayteamscore = models.IntegerField(blank=True, null=True)
-    match_completed = models.BooleanField(default=False)
     
+    # Use ForeignKey to reference the Teams model for home and away teams
+    hometeam = models.ForeignKey('Teams', related_name='home_games', on_delete=models.CASCADE)
+    hometeamscore = models.IntegerField(blank=True, null=True)
+    
+    awayteam = models.ForeignKey('Teams', related_name='away_games', on_delete=models.CASCADE)
+    awayteamscore = models.IntegerField(blank=True, null=True)
+    
+    match_completed = models.BooleanField(default=False)
+
     def __str__(self):
         return (f'{self.hometeam} vs {self.awayteam} on {self.date} at {self.time}')
 
-
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        self.update_scores()
+        if self.match_completed:
+            super().save(*args, **kwargs)
+        else:
+            self.update_scores()
+            super().save(*args, **kwargs)
 
     def update_scores(self):
         predictions = Predictions.objects.filter(schedule=self)
@@ -87,15 +93,7 @@ class Schedule(models.Model):
                 defaults={'points': points}
             )
         if self.hometeamscore is not None and self.awayteamscore is not None:
-            self.match_completed = True
-
-    def save(self, *args, **kwargs):
-        if self.match_completed:
-            super().save(*args, **kwargs)
-        else:
-            self.update_scores()
-            super().save(*args, **kwargs)
-            
+            self.match_completed = True            
 
 def calculate_points(actual_home_score, actual_away_score, predicted_home_score, predicted_away_score):
     if actual_home_score == predicted_home_score and actual_away_score == predicted_away_score:
