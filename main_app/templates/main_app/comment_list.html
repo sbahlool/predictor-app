@@ -22,14 +22,21 @@
                           <div class="comment-text w-100">
                               <h5><strong>{{ comment.user.username}}</strong></h5>
                               <div class="comment-footer">
+                                
                                   <span class="date">{{ comment.date }}</span>
-                                  {% if comment.user == request.user %}
-                                          <a href="{% url 'comment_update' comment.id %}" data-abc="true"><i class="glyphicon glyphicon-edit"></i></a>
-                                          <a href="{% url 'comment_delete' comment.id %}" data-abc="true"><i class="glyphicon glyphicon-remove"></i></a>
-                                    {% endif %}
+                                  
                                     
                               </div>
                               <p class="m-b-5 m-t-10">{{ comment.comment }}</p>
+                              <div class="comment-footer">
+                              {% if comment.user == request.user %}
+                                          <a href="{% url 'comment_update' comment.id %}" data-abc="true"><i class="glyphicon glyphicon-edit"></i></a>
+                                          <a href="{% url 'comment_delete' comment.id %}" data-abc="true"><i class="glyphicon glyphicon-remove"></i></a>
+                                    {% endif %}
+                                {% if comment.edited %}
+                                    <p class="text-warning">Edited</p>
+                                {% endif %}
+                              </div>
                           </div>
                       </div>
                   </div>

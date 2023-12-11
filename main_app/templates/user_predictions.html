@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}My Predictions{% endblock title %}
+{% block content %}
+    <h1 class="match-title"> My Predicted Matches </h1>
+
+    <form action="" method="get">
+        <label for="gameweek" class="active">Select Gameweek:</label>
+        <select name="gameweek" id="gameweek" class="form-select" onchange="updateSchedule()">
+            {% for gw in gameweeks %}
+                <option value="{{ gw }}" {% if selected_gameweek == gw %} selected {% endif %}>Gameweek {{ gw }}</option>
+            {% endfor %}
+        </select>
+    </form>
+    <!-- Display the user's predicted matches here -->
+    {% for prediction in predictions %}
+    <div class="card text-center">
+    
+        <div class="card-body">
+          
+          <h5 class="card-title">{{ prediction.schedule.date }} at {{ prediction.schedule.time }} </h5>
+          {% load static %}
+          <p class="card-text"> <img width="100px" height="100px" src="{% static prediction.schedule.hometeam.logo|cut:'main_app/static/' %}">  {{ prediction.schedule.hometeam }} {{ prediction.predhometeamscore }}  :   {{ prediction.predawayteamscore }} {{ prediction.schedule.awayteam }} <img width="100px" height="100px" src="{% static prediction.schedule.awayteam.logo|cut:'main_app/static/' %}">
+          </p>
+          
+        </div>     
+      </div>
+
+    {% endfor %}
+
+    <script>
+        function updateSchedule() {
+          const selectedGameweek = document.getElementById('gameweek').value;
+          window.location.href = `?gameweek=${selectedGameweek}`;
+        }
+    </script>
+{% endblock %}

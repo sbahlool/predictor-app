@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Schedule{% endblock title %}
+
+{% block extracss %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/scheduledetail.css' %}">
+{% endblock extracss %}
+
 {% block content %}
 <h1 class="schedule-header"> Schedule </h1>
 
 
-<div class="card text-center">
+<!-- <div class="card text-center">
   <div class="card-header">
     Featured
   </div>
@@ -20,7 +26,63 @@
     Match ended and predictions is locked. <a class="sched-btn" href="{% url 'schedule_index' %}">Go Back</a>
   </div>
   {% endif %}
+</div> -->
+
+
+
+
+<div class="container-match">
+	<!-- code here -->
+	<div class="match">
+		<div class="match-header">
+			<div class="match-status">Featured</div>
+			<div class="match-tournament"><img src="https://assets.codepen.io/285131/pl-logo.svg" />English Premier League</div>
+			<!-- <div class="match-actions">
+				<button class="btn-icon"><i class="material-icons-outlined">grade</i></button>
+				<button class="btn-icon"><i class="material-icons-outlined">add_alert</i></button>
+			</div> -->
+		</div>
+		<div class="match-content">
+			<div class="column">
+				<div class="team team--home">
+					<div class="team-logo">
+            {% load static %}
+						<img src="{% static schedule.hometeam.logo|cut:'main_app/static/' %}">
+					</div>
+					<h2 class="team-name">{{ schedule.hometeam }}</h2>
+				</div>
+			</div>
+			<div class="column">
+				<div class="match-details">
+					<div class="match-date">
+						{{ schedule.date }} at  <strong>{{ schedule.time }}</strong>
+					</div>
+					<div class="match-score">
+						<span class="match-score-number">{{ schedule.hometeamscore|default_if_none:"  " }}</span>
+						<span class="match-score-divider">:</span>
+						<span class="match-score-number">{{ schedule.awayteamscore|default_if_none:"  " }}</span>
+					</div>
+					
+					
+					{% if schedule.hometeamscore is None and schedule.awayteamscore is None %}
+          <a href="{% url 'prediction_create' pk=schedule.id %}" class="match-bet-place">Predict</a>
+          {% else %}
+          <div class="card-footer text-body-secondary">
+            Match ended and predictions is locked. <a class="sched-btn" href="{% url 'schedule_index' %}">Go Back</a>
+          </div>
+          {% endif %}
+				</div>
+			</div>
+			<div class="column">
+				<div class="team team--away">
+					<div class="team-logo">
+						<img src="{% static schedule.awayteam.logo|cut:'main_app/static/' %}">
+					</div>
+					<h2 class="team-name">{{ schedule.awayteam }}</h2>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
 {% endblock %}
-
-

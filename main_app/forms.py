@@ -45,14 +45,21 @@ class UpdateProfileForm(forms.ModelForm):
 
 
 class CommentForm(ModelForm):
-  class Meta:
-    model = Comment
-    fields = ['comment']
+    class Meta:
+        model = Comment
+        fields = ['comment']
 
 class PredictionsForm(forms.ModelForm):
     class Meta:
         model = Predictions
         fields = ['schedule', 'predhometeamscore', 'predawayteamscore']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        # Customize the label for the 'predhometeamscore' field
+        self.fields['predhometeamscore'].label = 'Home Team Score'
+        self.fields['predawayteamscore'].label = 'Away Team Score'
 
 
 

@@ -117,6 +117,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
     comment = models.TextField(max_length=250)
     date = models.DateField(default=datetime.date.today)
+    edited = models.BooleanField(default=False)
     timestamp = models.TimeField()
 
     class Meta:

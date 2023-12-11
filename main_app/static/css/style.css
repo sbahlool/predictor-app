@@ -295,3 +295,8 @@ font-family: 'Kanit', sans-serif !important;
   position: relative;
   left: 50%;
 }
+
+select.form-control:not([size]):not([multiple]) {
+    font-size: medium;
+    height: 40px !important;
+}

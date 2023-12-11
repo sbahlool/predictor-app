@@ -24,6 +24,7 @@ urlpatterns = [
 
   path('schedule/<int:pk>', views.ScheduleDetail.as_view(), name='schedule_detail'),
   path('prediction/<int:pk>', views.PredictionsList.as_view(), name='prediction_detail'),
+  path('my-predictions/', views.UserPredictionsView.as_view(), name='user-predictions'),
 
   path('schedule/<int:pk>/prediction/', views.PredictionsCreate.as_view(), name='prediction_create'),
 
