@@ -32,6 +32,11 @@ class Profile(models.Model):
         return (self.user.username)
 
     def save(self, *args, **kwargs):
+        # If the user is new, set the rank to the maximum value to make them last
+        if not self.pk:
+            max_rank = Profile.objects.aggregate(models.Max('rank'))['rank__max']
+            self.rank = max_rank + 1 if max_rank is not None else 1
+
         super().save(*args, **kwargs)
 
         img = Image.open(self.avatar.path)

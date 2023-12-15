@@ -48,6 +48,12 @@
       {{ form.password2.errors }}
     </div>
 
+    <div>
+      <label for="{{ form.team.id_for_label }}">Favorite Team:</label>
+      {{ form.team }}
+      {{ form.team.errors }}
+    </div>
+
     <input type="submit" class="btn" value="Signup">
   </form>
 </div>

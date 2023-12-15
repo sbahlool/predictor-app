@@ -11,14 +11,24 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Email', 'class': 'form-control',}))
     password1 = forms.CharField(max_length=50, required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'form-control', 'data-toggle': 'password', 'id': 'password',}))
     password2 = forms.CharField(max_length=50, required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password','class': 'form-control', 'data-toggle': 'password', 'id': 'password', }))
+    team = forms.ModelChoiceField(queryset=Teams.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
-        labels = {
-            'password1': 'Password',
-            'password2': 'Confirm Password',
-        }
+        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2', 'team']
+        
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.save()
+
+        # Check if a profile already exists for the user
+        profile, created = Profile.objects.get_or_create(user=user)
+
+        # Update the existing profile with the specified team
+        profile.team = self.cleaned_data['team']
+        profile.save()
+
+        return user
 
 class GameweekViewForm(ModelForm):
     class Meta:

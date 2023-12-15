@@ -10,25 +10,6 @@
 <h1 class="schedule-header"> Schedule </h1>
 
 
-<!-- <div class="card text-center">
-  <div class="card-header">
-    Featured
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">{{ schedule.date }} at {{ schedule.time }} </h5>
-    {% load static %}
-    <p class="card-text"> <img width="100px" height="100px" src="{% static schedule.hometeam.logo|cut:'main_app/static/' %}">  {{ schedule.hometeam }}   <span><strong>  {{ schedule.hometeamscore|default_if_none:"  " }}  </strong>  </span>vs<span><strong>  {{ schedule.awayteamscore|default_if_none:"  " }}  </strong></span>  {{ schedule.awayteam }}  <img width="100px" height="100px" src="{% static schedule.awayteam.logo|cut:'main_app/static/' %}"> </p>
-    {% if schedule.hometeamscore is None and schedule.awayteamscore is None %}
-    <a href="{% url 'prediction_create' pk=schedule.id %}" class="sched-btn">Predict</a>
-  </div>
-   {% else %}
-  <div class="card-footer text-body-secondary">
-    Match ended and predictions is locked. <a class="sched-btn" href="{% url 'schedule_index' %}">Go Back</a>
-  </div>
-  {% endif %}
-</div> -->
-
-
 
 
 <div class="container-match">
